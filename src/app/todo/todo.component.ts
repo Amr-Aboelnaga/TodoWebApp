@@ -39,21 +39,21 @@ export class TodoComponent implements OnInit {
       this.service.createTodo(this.username, this.todo).subscribe(
         data => {
           console.log(data)
-          this.router.navigate(['todos'])
+          this.router.navigate(['todos', this.username])
         }
       );
     } else
       this.service.putTodo(this.username, this.id, this.todo).subscribe(
         data => {
           console.log(data)
-          this.router.navigate(['todos'])
+          this.router.navigate(['todos', this.username])
 
         }
       );
   }
 
   cancelUpdate() {
-    this.router.navigate(['todos'])
+    this.router.navigate(['todos', this.username])
 
   }
 }

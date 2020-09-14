@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
+import { Router } from '@angular/router';
+import { BasicAuthenticationService } from '../service/basic-authentication.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,14 +8,20 @@ import { HardcodedAuthenticationService } from '../service/hardcoded-authenticat
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  //isloggedin:boolean=false
+  username = ""
+  constructor(private router: Router, public basicAuthenticationService: BasicAuthenticationService) {
 
-  constructor(public hardcodedAuthentication:HardcodedAuthenticationService) {
-
-   }
+  }
 
   ngOnInit(): void {
-   //this.isloggedin= this.hardcodedAuthentication.isUserLoggedIn();
+    console.log("called")
+    this.username = this.basicAuthenticationService.getAuthenticatedUser()
+  }
+  routeToWelcome(): void {
+    this.router.navigate(['welcome', this.basicAuthenticationService.getAuthenticatedUser()]);
+  }
+  routeToTodos(): void {
+    this.router.navigate(['todos', this.basicAuthenticationService.getAuthenticatedUser()]);
   }
 
 }
