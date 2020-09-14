@@ -11,7 +11,7 @@ export class BasicAuthenticationService {
 
   executeJWTAuthenticationService(username, password) {
 
-    return this.http.post<any>(`http://localhost:8080/authenticate`, { username, password }).pipe(
+    return this.http.post<any>(`https://limitless-oasis-30668.herokuapp.com/authenticate`, { username, password }).pipe(
       map(
         data => {
           sessionStorage.setItem('authenticatedUser', username)
@@ -23,24 +23,6 @@ export class BasicAuthenticationService {
     );
   }
 
-  executeAuthenticationService(username, password) {
-    let basicAuthHeaderString = this.createBasicAutenthicationHttpHeader(username, password);
-    let headers = new HttpHeaders(
-      {
-        Authorization: basicAuthHeaderString
-      }
-    );
-    return this.http.get<AuthenticationBean>(`http://localhost:8080/basicauth`, { headers }).pipe(
-      map(
-        data => {
-          sessionStorage.setItem('authenticatedUser', username)
-          sessionStorage.setItem('token', basicAuthHeaderString)
-
-          return data;
-        }
-      )
-    );
-  }
 
   createBasicAutenthicationHttpHeader(username, password) {
 
